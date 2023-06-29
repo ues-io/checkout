@@ -1,0 +1,6 @@
+name: order
+public: true
+label: Order
+pluralLabel: Orders
+uniqueKey:
+  - ben/checkout.id

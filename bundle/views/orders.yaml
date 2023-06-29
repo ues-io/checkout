@@ -1,0 +1,64 @@
+name: orders
+public: true
+definition:
+  # Wires connect to data in collections
+  wires:
+    order:
+      collection: ben/checkout.order
+      fields:
+        ben/checkout.id:
+  # Components determine the layout and composition of your view
+  components:
+    - uesio/io.box:
+        uesio.styleTokens:
+          root:
+            - p-10
+        components:
+          - uesio/io.titlebar:
+              title: ben/checkout.order
+              uesio.variant: uesio/io.main
+              actions:
+                - uesio/io.group:
+                    components:
+                      - uesio/io.button:
+                          signals:
+                            - signal: wire/CREATE_RECORD
+                              wire: order
+                          text: Create
+                          uesio.variant: uesio/io.primary
+                      - uesio/io.button:
+                          signals:
+                            - signal: wire/SAVE
+                              wires:
+                                - order
+                          text: Save
+                          hotkey: "meta+s"
+                          uesio.variant: uesio/io.secondary
+                      - uesio/io.button:
+                          signals:
+                            - signal: wire/CANCEL
+                              wire: order
+                          text: Cancel
+                          uesio.variant: uesio/io.secondary
+                      - uesio/io.button:
+                          signals:
+                            - signal: component/CALL
+                              component: uesio/io.table
+                              componentsignal: TOGGLE_MODE
+                              targettype: specific
+                              componentid: order
+                          text: Mode
+                          uesio.variant: uesio/io.secondary
+          - uesio/io.box:
+              components:
+                - uesio/io.table:
+                    rowactions:
+                      - text: Delete
+                        signals:
+                          - signal: wire/TOGGLE_DELETE_STATUS
+                    columns:
+                      - field: ben/checkout.id
+                    uesio.id: order
+                    mode: EDIT
+                    wire: order
+                    pagesize: 10

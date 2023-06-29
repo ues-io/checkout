@@ -1,0 +1,6 @@
+name: quantity
+type: NUMBER
+label: Quantity
+number:
+  decimals: 0
+required: true

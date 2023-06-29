@@ -1,0 +1,6 @@
+name: stripe
+public: true
+type: stripe
+credentials: ben/checkout.stripe
+headers: {}
+baseUrl: ""

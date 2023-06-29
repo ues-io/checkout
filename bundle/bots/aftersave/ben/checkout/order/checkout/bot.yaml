@@ -1,0 +1,5 @@
+name: checkout
+public: true
+collection: ben/checkout.order
+type: AFTERSAVE
+dialect: TYPESCRIPT

@@ -1,0 +1,7 @@
+name: items
+type: REFERENCEGROUP
+label: Items
+referenceGroup:
+  collection: ben/checkout.orderitem
+  field: ben/checkout.order
+  onDelete: CASCADE

@@ -1,0 +1,4 @@
+name: description
+public: true
+type: TEXT
+label: Description

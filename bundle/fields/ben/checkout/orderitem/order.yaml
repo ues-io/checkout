@@ -1,0 +1,6 @@
+name: order
+type: REFERENCE
+label: Order
+reference:
+  collection: ben/checkout.order
+required: true

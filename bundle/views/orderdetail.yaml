@@ -1,0 +1,97 @@
+name: orderdetail
+public: true
+definition:
+  # Wires connect to data in collections
+  wires:
+    order:
+      collection: ben/checkout.order
+      fields:
+        ben/checkout.id:
+        uesio/core.id: {}
+        ben/checkout.status: {}
+        ben/checkout.checkout_url: {}
+        ben/checkout.success_url: {}
+      conditions:
+        - field: uesio/core.id
+          value: $Param{recordid}
+    items:
+      batchsize: 200
+      collection: ben/checkout.orderitem
+      fields:
+        ben/checkout.description: {}
+        ben/checkout.id: {}
+        ben/checkout.name: {}
+        ben/checkout.quantity: {}
+        ben/checkout.price: {}
+      conditions:
+        - field: ben/checkout.order
+          valueSource: LOOKUP
+          lookupWire: order
+          lookupField: uesio/core.id
+  # Components determine the layout and composition of your view
+  components:
+    - uesio/io.box:
+        uesio.display:
+          - type: paramIsSet
+            param: recordid
+        uesio.styleTokens:
+          root:
+            - p-10
+        components:
+          - uesio/io.titlebar:
+              title: Please Review your Order
+              uesio.variant: uesio/io.main
+              actions:
+                - uesio/io.group:
+                    components:
+                      - uesio/io.button:
+                          uesio.display:
+                            - type: hasNoValue
+                              value: ${order:ben/checkout.checkout_url}
+                              wire: order
+                          signals:
+                            - signal: wire/UPDATE_RECORD
+                              wire: order
+                              field: ben/checkout.status
+                              value: SUBMITTED
+                            - signal: wire/SAVE
+                              wires:
+                                - order
+                            - signal: wire/LOAD
+                              wires:
+                                - order
+                          text: Complete Order
+                          uesio.variant: uesio/io.secondary
+                      - uesio/io.button:
+                          uesio.display:
+                            - type: hasValue
+                              value: ${order:ben/checkout.checkout_url}
+                              wire: order
+                          signals:
+                            - signal: route/REDIRECT
+                              path: ${order:ben/checkout.checkout_url}
+                          text: Check Out
+                          uesio.variant: uesio/io.secondary
+          - uesio/io.table:
+              wire: items
+              columns:
+                - field: ben/checkout.id
+                - field: ben/checkout.name
+                - field: ben/checkout.description
+                - field: ben/checkout.quantity
+                - field: ben/checkout.price
+    - uesio/io.box:
+        uesio.display:
+          - type: paramIsNotSet
+            param: recordid
+        uesio.styleTokens:
+          root:
+            - p-10
+        components:
+          - uesio/io.text:
+              text: Select a record
+  params:
+    recordid:
+      type: RECORD
+      required: true
+      collection: ben/checkout.order

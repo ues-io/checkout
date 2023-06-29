@@ -1,0 +1,5 @@
+name: id
+public: true
+type: TEXT
+label: ID
+required: true

@@ -1,0 +1,27 @@
+name: public
+public: true
+named: {}
+views:
+  ben/checkout.orderdetail: true
+collections:
+  ben/checkout.order:
+    read: true
+    create: true
+    edit: false
+    delete: false
+    fields: {}
+  ben/checkout.orderitem:
+    read: true
+    create: true
+    edit: false
+    delete: false
+    fields: {}
+routes:
+  ben/checkout.orderdetail: true
+files: {}
+allowallcollections: false
+allowallviews: false
+allowallroutes: false
+allowallfiles: false
+modifyallrecords: false
+viewallrecords: false

@@ -1,0 +1,6 @@
+name: orderdetail
+public: true
+path: order/{recordid}
+view: ben/checkout.orderdetail
+theme: uesio/core.default
+title: ""

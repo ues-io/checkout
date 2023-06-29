@@ -1,0 +1,4 @@
+name: public
+public: true
+permissionSets:
+  - ben/checkout.public

@@ -1,0 +1,6 @@
+name: price
+type: NUMBER
+label: Price
+number:
+  decimals: 0
+required: true
